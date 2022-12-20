@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean, Median, Modus, Std</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.js" integrity="sha512-PRRHSwgn8QJinp43y5B698YK/FApqSvwmd7kVu8NWMksCl/3daKnNbPNWPuGKDrpIIb+0Dg5W55VSbZi0QG60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <main>
+        
+        <div class="container-grid">
+            <div class="output">
+                <input type="number" data-previous-operand class="previous-operand"></input>
+                <div data-current-operand class="current-operand"></div>
+                <div data-current-operand-1 class="current-operand"></div>
+            </div>
+            <button data-all-clear class="span-three">AC</button>
+            <button data-delete>DEL</button>
+            <button data-operation class="mean">Mean</button>
+            <button data-operation class="median">Median</button>
+            <button data-operation class="modus">Mode</button>
+            <button data-operation class="std">Std</button>
+            <button data-submit class="span-four">SUBMIT</button>
+        </div>
+    </main>
+</body>
+</html>
