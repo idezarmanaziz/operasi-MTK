@@ -8,10 +8,6 @@ const deleteBtn = document.querySelector("[data-delete]");
 
 const a = [];
 
-function convertNumber(array) {
-    const convert = array.map(a => parseFloat(a))
-    return convert
-}
 
 class Exec {
     constructor(previousOperand, currentOperand, currentOperand1) {
@@ -129,9 +125,7 @@ deleteBtn.addEventListener("click", () => {
 });
 
 submitBtn.addEventListener("click", () => {
-    const previousOperand = document.querySelector("[data-previous-operand]").value;
-    a.push(previousOperand);
-    exec.resultConvert(a);
+    return exec.validasiInput()
 });
 
 operationsButton.forEach((btn) => {
