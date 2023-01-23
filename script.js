@@ -1,144 +1,107 @@
-const operationsButton = document.querySelectorAll("[data-operation]");
-const previousOperand = document.querySelector("[data-previous-operand]");
-const currentOperand = document.querySelector("[data-current-operand]");
-const currentOperand1 = document.querySelector("[data-current-operand-1]");
-const allClearBtn = document.querySelector("[data-all-clear]");
-const submitBtn = document.querySelector("[data-submit]");
-const deleteBtn = document.querySelector("[data-delete]");
+const dataInput = document.querySelector("[data-input]");
+const dataPreviousOperand = document.querySelector("[data-previous-operand]");
+const dataCurrentOperand = document.querySelector("[data-current-operand]");
+const dataAllClear = document.querySelector("[data-all-clear]");
+const dataDelete = document.querySelector("[data-delete]");
+const dataOperations = document.querySelectorAll("[data-operation]");
+const dataSubmit = document.querySelector("[data-submit]");
 
-const a = [];
+class Calculator {
+  constructor(input, previousOperand, currentOperand) {
+    this.input = input;
+    this.previousOperand = previousOperand;
+    this.currentOperand = currentOperand;
+    this.numbers = [];
+  }
 
+  addNumber(number) {
+    this.numbers.push(number);
+  }
 
-class Exec {
-    constructor(previousOperand, currentOperand, currentOperand1) {
-        this.previousOperand = previousOperand;
-        this.currentOperand = currentOperand;
-        this.currentOperand1 = currentOperand1;
+  getValues() {
+    const inputValue = this.input.value;
+    if (inputValue === "") {
+      return alert("Please enter a valid number and input can't be empty");
     }
+    this.addNumber(inputValue);
+    this.previousOperand.textContent = this.numbers;
+  }
 
-    resultConvert() {
-        const result = (this.currentOperand.textContent = this.convertNumber(a));
-        return result;
+  mean() {
+    if (this.numbers.length === 0) {
+      return alert("Please enter a valid number and input can't be empty");
     }
+    const mean = math.mean(this.numbers);
+    this.currentOperand.textContent = mean;
+    this.clear();
+  }
 
-    convertNumber(value) {
-        const convert = value.map((a) => parseFloat(a));
-        return convert;
+  median() {
+    if (this.numbers.length === 0) {
+      return alert("Please enter a valid number and input can't be empty");
     }
+    const median = math.median(this.numbers);
+    this.currentOperand.textContent = median;
+    this.clear();
+  }
 
-    validasiInput() {
-        if (this.previousOperand.value === "") {
-            return alert("Invalid input. Please enter a valid number and input can't be empty.");
-        }
-        a.push(this.previousOperand.value);
-        this.resultConvert(a);
+  mode() {
+    if (this.numbers.length === 0) {
+      return alert("Please enter a valid number and input can't be empty");
     }
+    const mode = math.mode(this.numbers);
+    this.currentOperand.textContent = mode;
+    this.clear();
+  }
 
-    mean() {
-        if (this.currentOperand === "NaN" || a.length === 0 || this.currentOperand === "") {
-            return alert("Invalid input. Please enter a valid number or add numbers to the array.");
-        } else {
-            const mean = (this.currentOperand1.textContent = math.mean(this.resultConvert()));
-            this.clear1();
-            return mean;
-        }
+  std() {
+    if (this.numbers.length === 0) {
+      return alert("Please enter a valid number and input can't be empty");
     }
+    const std = math.std(this.numbers);
+    this.currentOperand.textContent = std;
+    this.clear();
+  }
 
-    median() {
-        if (this.currentOperand === "NaN" || a.length === 0 || this.currentOperand === "") {
-            return alert("Invalid input. Please enter a valid number or add numbers to the array.");
-        } else {
-            const median = (this.currentOperand1.textContent = math.median(this.resultConvert()));
-            this.clear1();
-            return median;
-        }
-    }
+  clear() {
+    this.input.value = "";
+    this.numbers = [];
+  }
 
-    mode() {
-        if (this.currentOperand === "NaN" || a.length === 0 || this.currentOperand === "") {
-            return alert("Invalid input. Please enter a valid number or add numbers to the array.");
-        } else {
-            const mode = (this.currentOperand1.textContent = math.mode(this.resultConvert()));
-            this.clear1();
-            return mode;
-        }
-    }
+  clearAll() {
+    this.clear();
+    this.currentOperand.textContent = "";
+    this.previousOperand.textContent = "";
+  }
 
-    std() {
-        if (this.currentOperand === "NaN" || a.length === 0 || this.currentOperand === "") {
-            return alert("Invalid input. Please enter a valid number or add numbers to the array.");
-        } else {
-            const std = (this.currentOperand1.textContent = math.std(this.resultConvert()));
-            this.clear1();
-            return std;
-        }
-    }
-
-    clear1() {
-        this.previousOperand.value = "";
-        this.currentOperand.textContent = "";
-        this.previousOperand.textContent = "";
-        return this.reset();
-    }
-
-    clear() {
-        this.previousOperand.value = "";
-        this.currentOperand.textContent = "";
-        this.currentOperand1.textContent = "";
-        this.previousOperand.textContent = "";
-        return this.reset();
-    }
-
-    reset() {
-        a.splice(0, a.length);
-    }
-
-    delete() {
-        a.pop();
-        this.currentOperand.textContent = a;
-    }
+  delete() {
+    this.numbers.pop();
+    this.previousOperand.textContent = this.numbers;
+  }
 }
 
-const exec = new Exec(previousOperand, currentOperand, currentOperand1);
+const calculator = new Calculator(dataInput, dataPreviousOperand, dataCurrentOperand);
 
-
-
-previousOperand.addEventListener("keyup", (e) => {
-    const unicode = e.keyCode;
-    if (unicode == 13) {
-        exec.validasiInput();
-    } else if (unicode == 77) {
-        exec.mean();
-    } else if (unicode == 78) {
-        exec.median()
-    } else if (unicode == 66) {
-        exec.mode()
-    }
+dataInput.addEventListener("keyup", (e) => {
+  if (e.keyCode === 13) {
+    calculator.getValues();
+  }
 });
 
-allClearBtn.addEventListener("click", () => {
-    return exec.clear();
+dataSubmit.addEventListener("click", () => {
+  calculator.getValues();
 });
 
-deleteBtn.addEventListener("click", () => {
-    return exec.delete();
+dataAllClear.addEventListener("click", () => {
+  calculator.clearAll();
 });
 
-submitBtn.addEventListener("click", () => {
-    return exec.validasiInput()
+dataDelete.addEventListener("click", () => {
+  calculator.delete();
 });
 
-operationsButton.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const styles = e.target.classList;
-        if (styles.contains("mean")) {
-            exec.mean();
-        } else if (styles.contains("median")) {
-            exec.median();
-        } else if (styles.contains("modus")) {
-            exec.mode();
-        } else {
-            exec.std();
-        }
-    });
+dataOperations.forEach((operation) => {
+  operation.addEventListener("click", (e) => {
+    calculator[e.target.textContent.toLowerCase()]();
+  });
 });
