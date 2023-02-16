@@ -53,13 +53,13 @@ class Calculator {
     this.currentOperand.textContent = mode;
     this.clear();
   }
-
+  
   std() {
     if (this.numbers.length === 0) {
       return alert("Please enter a valid number and input can't be empty");
     }
     const std = math.std(this.numbers);
-    this.currentOperand.textContent = std;
+    this.currentOperand.textContent = std.toFixed(2);
     this.clear();
   }
 
@@ -83,10 +83,9 @@ class Calculator {
 const calculator = new Calculator(dataInput, dataPreviousOperand, dataCurrentOperand);
 
 dataInput.addEventListener("keyup", (e) => {
-  if (e.keyCode === 13) {
-    calculator.getValues();
-  }
+  e.keyCode === 13 ? calculator.getValues() : false
 });
+
 
 dataSubmit.addEventListener("click", () => {
   calculator.getValues();
